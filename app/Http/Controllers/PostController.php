@@ -6,6 +6,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 /*
  * PostController: pages of the bulletin.
@@ -83,7 +84,7 @@ class PostController extends Controller
         // create through the author's posts relationship so author_id is filled in for us.
         // tags are not a column in posts, so leave them out of create()
         $post = $request->user()->author->posts()->create([
-            ...collect($data)->except('tags')->all(),
+            ...Arr::except($data, ['tags']),
             'is_published' => $isPublished,
             'published_at' => $isPublished ? now() : null,
         ]);
