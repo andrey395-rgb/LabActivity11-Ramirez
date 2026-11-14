@@ -17,9 +17,13 @@ class DatabaseSeeder extends Seeder
     {
         // authors first so posts have someone to belong to
         // (posts.author_id needs an existing author, or the foreign key fails)
+        // Lab 11: users after authors (to link the Kagawad), tags and comments need posts + users
         $this->call([
             AuthorSeeder::class,
             PostSeeder::class,
+            UserSeeder::class,
+            TagSeeder::class,
+            CommentSeeder::class,
         ]);
     }
 }
