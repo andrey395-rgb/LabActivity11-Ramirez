@@ -88,7 +88,8 @@
     </div>
 
     {{-- firstItem/lastItem = position of the first and last post on this page, total = all matching posts --}}
-    <p class="text-sm text-stone-500 mt-2">
+    {{-- sm:hidden because links() already shows "Showing x to y of z results" from sm: (640px) up --}}
+    <p class="text-sm text-stone-500 mt-2 sm:hidden">
         Showing {{ $posts->firstItem() }}–{{ $posts->lastItem() }} of {{ $posts->total() }} posts
     </p>
 @endsection
