@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /*
  * Post model (Eloquent / ActiveRecord).
@@ -26,4 +29,24 @@ class Post extends Model
         'is_pinned'    => 'boolean',
         'published_at' => 'datetime', // gives a Carbon date, so ->format('M d, Y') works in the views
     ];
+
+    // --- Lab 11 relationships ---
+
+    // the author who wrote this post (posts.author_id -> authors.id)
+    public function author(): BelongsTo
+    {
+        return $this->belongsTo(Author::class, 'author_id');
+    }
+
+    // comments under this post (comments.post_id)
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    // tags on this post, many-to-many through the post_tag pivot
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }
