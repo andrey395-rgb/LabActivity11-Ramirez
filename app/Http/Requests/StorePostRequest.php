@@ -32,6 +32,7 @@ class StorePostRequest extends FormRequest
         return [
             'tags.required' => 'Pick at least one tag.',
             'tags.min'      => 'Pick at least one tag.',
+            'tags.*.exists' => 'One of the selected tags does not exist.',
         ];
     }
 }

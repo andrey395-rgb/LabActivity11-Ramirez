@@ -62,8 +62,11 @@ class PostController extends Controller
     }
 
     // GET /posts/create  (auth middleware, only authors see the link)
-    public function create()
+    public function create(Request $request)
     {
+        // residents have no author profile, so they can't open the form either
+        abort_unless($request->user()->author, 403);
+
         $categories = ['Announcement', 'Health', 'Peace & Order', 'Ayuda', 'Livelihood'];
         $tags = Tag::orderBy('name')->get();
 
